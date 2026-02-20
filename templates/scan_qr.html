@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Railway Gate Scanner</title>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <style>
+        body{
+            margin:0;
+            font-family: Arial;
+            background:#0e1a2b;
+            color:white;
+            text-align:center;
+        }
+
+        header{
+            background:#142f4c;
+            padding:20px;
+            font-size:24px;
+            font-weight:bold;
+            letter-spacing:1px;
+        }
+
+        .container{
+            margin-top:30px;
+        }
+
+        #reader{
+            width:320px;
+            margin:auto;
+            border:5px solid #1abc9c;
+            border-radius:12px;
+            padding:10px;
+            background:black;
+        }
+
+        .status-box{
+            margin-top:30px;
+            padding:20px;
+            border-radius:10px;
+            width:400px;
+            margin-left:auto;
+            margin-right:auto;
+            background:#1f2d3d;
+            box-shadow:0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .status-text{
+            font-size:26px;
+            font-weight:bold;
+            margin-top:10px;
+        }
+
+        .indicator{
+            width:20px;
+            height:20px;
+            border-radius:50%;
+            margin:auto;
+            margin-bottom:10px;
+            background:gray;
+        }
+
+        .green{ background:#2ecc71 !important; }
+        .red{ background:#e74c3c !important; }
+        .orange{ background:#f39c12 !important; }
+
+        .hint{
+            margin-top:20px;
+            color:#aaa;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:20px;
+            padding:10px 20px;
+            background:#1abc9c;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>🚪 Smart Railway Gate Scanner</header>
+
+<div class="container">
+
+    <div id="reader"></div>
+
+    <div class="status-box">
+        <div id="indicator" class="indicator"></div>
+        <div id="status" class="status-text">Waiting for scan...</div>
+    </div>
+
+    <div class="hint">Hold QR code steady in front of camera</div>
+
+    <a href="/dashboard" class="btn">⬅ Back to Dashboard</a>
+
+</div>
+
+<script>
+
+function updateStatus(message){
+
+    let indicator = document.getElementById("indicator");
+    let status = document.getElementById("status");
+
+    status.innerText = message;
+
+    indicator.className = "indicator";
+
+    if(message.includes("VALID")){
+        indicator.classList.add("green");
+    }
+    else if(message.includes("FRAUD")){
+    indicator.classList.add("red");
+}
+
+    else if(message.includes("USED")){
+        indicator.classList.add("orange");
+    }
+    else if(message.includes("DENIED") || message.includes("INVALID")){
+        indicator.classList.add("red");
+    }
+}
+
+function onScanSuccess(decodedText){
+
+    updateStatus("Checking ticket...");
+
+    fetch("/verify_scan", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({qr_data: decodedText})
+    })
+    .then(response => response.json())
+    .then(data => {
+        updateStatus(data.message);
+    });
+}
+
+let scanner = new Html5QrcodeScanner(
+    "reader",
+    { fps: 10, qrbox: 250 }
+);
+
+scanner.render(onScanSuccess);
+
+</script>
+
+</body>
+</html>

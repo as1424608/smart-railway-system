@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Railway System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>🚆 Smart Railway Management System</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Book Ticket</h2>
+
+        <form method="post" action="/book">
+            <input name="pid" placeholder="Passenger ID" required>
+            <input type="date" name="date" required>
+
+            <select name="train" required>
+                <option value="">Select Train</option>
+                <option value="Train42">Train42</option>
+                <option value="Train50">Train50</option>
+                <option value="Train60">Train60</option>
+            </select>
+
+            <button type="submit">Book Ticket</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Admin</h2>
+        <a class="btn" href="/login">Admin Login</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard | Smart Railway</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>📊 Admin Dashboard</header>
+
+<div class="container">
+
+    <!-- DASHBOARD CARDS -->
+     <div class="card">
+        <h3>Total Bookings</h3>
+        <p class="big">{{ bookings }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Fines</h3>
+        <p class="big">{{ fines }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Paid Fines</h3>
+        <p class="big green">{{ paid }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Pending Fines</h3>
+        <p class="big red">{{ pending }}</p>
+    </div>
+
+    <!-- ANALYTICS SECTION -->
+  <div class="card">
+    <h2>📈 Analytics</h2>
+
+    <a class="btn" href="/fine_graph">📉 Fine Trend</a>
+    <a class="btn" href="/booking_graph">📊 Bookings Per Train</a>
+    <a class="btn" href="/fine_status_graph">🟠 Fine Status</a>
+    <a class="btn" href="/verify">📷 Verify Ticket</a>
+    <a class="btn" href="/gate">🚪 Entry Gate</a>
+    <a class="btn" href="/gate_logs">📊 Gate Logs</a>
+    <a class="btn" href="/scan_qr">📷 Live QR Scanner</a>
+
+
+</div>
+
+    
+    <!-- NAVIGATION -->
+    <div class="card">
+        <a class="btn" href="/">🏠 Home</a>
+        <a class="btn" href="/logout">🚪 Logout</a>
+    </div>
+
+    <div class="card">
+        <h3>Total Bookings</h3>
+        <p style="font-size:32px; color:#ff8c00; font-weight:bold;">
+            {{ bookings }}
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Total Fines</h3>
+        <p style="font-size:32px; color:#ff8c00; font-weight:bold;">
+            {{ fines }}
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Paid Fines</h3>
+        <p style="font-size:32px; color:#27ae60; font-weight:bold;">
+            {{ paid }}
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Pending Fines</h3>
+        <p style="font-size:32px; color:#c0392b; font-weight:bold;">
+            {{ pending }}
+        </p>
+    </div>
+
+    <!-- GRAPH LINKS -->
+    <div class="card">
+        <h3>Analytics</h3>
+
+        <a class="btn" href="/fine_graph">📈 Fine Trend</a><br>
+        <a class="btn" href="/booking_graph">📊 Bookings Per Train</a><br>
+        <a class="btn" href="/fine_status_graph">📉 Fine Status</a>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="card">
+        <a class="btn" href="/">🏠 Home</a>
+        <a class="btn" href="/logout">🚪 Logout</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>🎫 Ticket Confirmed</header>
+
+<div class="container">
+
+    <div class="card">
+        <p><b>Ticket ID:</b> {{ ticket_id }}</p>
+        <p><b>Passenger:</b> {{ passenger }}</p>
+        <p><b>Train:</b> {{ train }}</p>
+        <p><b>Date:</b> {{ date }}</p>
+
+        <img src="/{{ qr }}" width="250">
+    </div>
+
+    <div class="card">
+        <a class="btn" href="/">🏠 Home</a>
+    </div>
+<div style="text-align:center; margin-top:20px;">
+
+    <a href="/download_ticket/{{ ticket_id }}">
+        <button style="
+            padding:12px;
+            background:#ff8c00;
+            color:white;
+            border:none;
+            border-radius:6px;
+            font-size:16px;
+            cursor:pointer;
+        ">
+            🎫 Download Ticket PDF
+        </button>
+    </a>
+
+</div>
+
+</div>
+
+</body>
+</html>

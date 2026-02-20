@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header>📷 Ticket Verification (Scanner)</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Scan / Enter Ticket ID</h2>
+
+        <form method="post" action="/verify">
+            <input 
+                name="ticket_id" 
+                placeholder="Enter Ticket ID" 
+                required
+            >
+            <button type="submit">Verify Ticket</button>
+        </form>
+    </div>
+
+    {% if result %}
+    <div class="card">
+        <h2>Status</h2>
+        <p style="font-size:20px; font-weight:bold; color: {{ color }};">
+            {{ result }}
+        </p>
+
+        {% if details %}
+        <p><b>Passenger:</b> {{ details.passenger }}</p>
+        <p><b>Train:</b> {{ details.train }}</p>
+        <p><b>Date:</b> {{ details.date }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="card">
+        <a class="btn" href="/dashboard">⬅ Back to Dashboard</a>
+    </div>
+
+</div>
+
+</body>
+</html>
